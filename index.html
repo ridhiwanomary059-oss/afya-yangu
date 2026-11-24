@@ -1,243 +1,221 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Afya Yangu - Tanzania</title>
+<title>Afya Yangu - Tanzania Health App</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-  body{background:#f2f5f8;color:#111}
-  header{background:#0a7a42;color:#fff;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-  header h1{font-size:22px}
-  header p{font-size:12px;opacity:.9}
-  .container{padding:14px;padding-bottom:90px;max-width:500px;margin:auto}
-  .card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-  .card h3{margin-bottom:8px;color:#0a7a42}
-  .card p{font-size:13px;color:#555;line-height:1.5}
-  input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:14px}
-  button{width:100%;padding:12px;border:none;border-radius:10px;background:#0a7a42;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:6px}
-  button.red{background:#d92d20} button.blue{background:#0b5ed7} button.orange{background:#f59e0b}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .grid div{background:#e8f5ee;border-radius:12px;padding:14px;text-align:center;cursor:pointer;font-weight:bold;font-size:13px}
-  .grid div span{font-size:24px;display:block}
-  .flex{display:flex;gap:8px} .flex button{flex:1}
-  .small{font-size:12px;color:#777}
-  .badge{background:#ffe8e8;color:#d92d20;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:bold}
-  .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #ddd;max-width:500px;margin:auto}
-  .bottom div{flex:1;text-align:center;padding:10px 0;font-size:12px;cursor:pointer}
-  .bottom div.active{color:#0a7a42;font-weight:bold}
-  .hidden{display:none}
-  .hospital{border:1px solid #eee;border-radius:10px;padding:10px;margin:8px 0}
-  .qr{width:120px;height:120px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;margin:10px auto;font-size:12px;border-radius:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#f4f6f4;color:#111}
+header{background:#064e2b;color:#fff;padding:18px 16px;position:sticky;top:0;z-index:10}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:900}
+.logo span{color:#f5c518}
+.sub{font-size:13px;opacity:.9;margin-top:2px}
+.qr{background:#f5c518;color:#000;padding:8px 12px;border-radius:20px;font-weight:800;font-size:13px;border:none;cursor:pointer}
+.hero{background:linear-gradient(135deg,#064e2b,#0a7a44);color:#fff;padding:22px 16px;border-radius:0 0 24px 24px}
+.hero h1{font-size:28px;line-height:1.1}
+.hero h1 b{color:#f5c518}
+.hero p{margin:10px 0 16px;opacity:.95}
+.search{width:100%;padding:13px;border-radius:12px;border:none;font-size:15px}
+.wrap{padding:16px}
+.section-title{font-size:20px;font-weight:900;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.section-title small{color:#0a7a44;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#fff;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);cursor:pointer}
+.card i{font-size:28px;display:block;margin-bottom:6px}
+.card b{font-size:15px}
+.card p{font-size:12px;color:#666;margin-top:3px}
+.card.gold{background:#f5c518}
+.card.green{background:#064e2b;color:#fff}
+.card.green p{color:#e8ffe8}
+.list{display:flex;flex-direction:column;gap:12px}
+.h-item{background:#fff;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.h-item img{width:58px;height:58px;border-radius:12px;object-fit:cover;background:#e8f5ee}
+.h-item h3{font-size:16px}
+.h-item p{font-size:13px;color:#666}
+.badge{margin-left:auto;background:#e8f5ee;color:#064e2b;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:800;white-space:nowrap}
+.badge.gold{background:#fff3c4;color:#7a5b00}
+.badge.red{background:#ffe8e8;color:#c00}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
+.btn-gold{background:#f5c518;color:#000}
+.btn-green{background:#064e2b;color:#fff}
+.btn-outline{background:#fff;color:#064e2b;border:2px solid #064e2b}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.tab{padding:9px 14px;border-radius:20px;border:1px solid #ddd;background:#fff;font-weight:700;white-space:nowrap;cursor:pointer}
+.tab.active{background:#064e2b;color:#fff;border-color:#064e2b}
+.patient{background:#064e2b;color:#fff;border-radius:20px;padding:18px}
+.patient h2{color:#f5c518}
+.patient .row{display:flex;justify-content:space-between;margin:10px 0;font-size:14px;border-bottom:1px dashed rgba(255,255,255,.25);padding-bottom:8px}
+.qrbox{background:#fff;color:#000;border-radius:14px;padding:14px;text-align:center;margin-top:12px;font-size:32px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:8px 0;font-size:15px}
+footer{text-align:center;padding:20px;color:#888;font-size:13px}
+.hidden{display:none}
+.emergency{background:#c00;color:#fff;border-radius:16px;padding:16px;text-align:center;margin-top:16px}
+.emergency a{color:#fff;font-size:22px;font-weight:900;text-decoration:none}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🏥 AFYA YANGU</h1>
-  <p>Hospital • Dispensary • Pharmacy - Tanzania</p>
-  <div style="margin-top:8px"><button onclick="toggleLang()" style="background:#fff;color:#0a7a42;padding:6px;width:auto">SW / EN</button></div>
+<div class="top">
+<div><div class="logo">AFYA <span>YANGU</span></div><div class="sub">Hospital • Dispensary • Pharmacy - Tanzania</div></div>
+<button class="qr" onclick="showPage('patient')">📷 QR CARD</button>
+</div>
 </header>
 
-<div class="container">
-
-  <!-- HOME -->
-  <div id="home">
-    <div class="card">
-      <h3 id="welcome">Karibu, Rizyone 👋</h3>
-      <p id="welcomeSub">Chagua huduma unayotaka leo. Choose service you need today.</p>
-      <div class="qr">QR: RIZY-2026<br>SCAN ME</div>
-      <p class="small" style="text-align:center">Health Card • Kadi ya Afya - Show at hospital</p>
-    </div>
-
-    <div class="grid">
-      <div onclick="show('booking')"><span>📅</span><span id="t1">Book Appointment</span></div>
-      <div onclick="show('tele')"><span>📹</span><span id="t2">Telemedicine</span></div>
-      <div onclick="show('pharmacy')"><span>💊</span><span id="t3">E-Pharmacy</span></div>
-      <div onclick="show('history')"><span>📋</span><span id="t4">History / Lab</span></div>
-      <div onclick="show('family')"><span>👨‍👩‍👧</span><span id="t5">Family</span></div>
-      <div onclick="show('blood')"><span>🩸</span><span id="t6">Blood Donor</span></div>
-      <div onclick="show('nearby')"><span>📍</span><span id="t7">Nearby Hospitals</span></div>
-      <div onclick="show('nurse')"><span>🤖</span><span id="t8">Nurse AI Chat</span></div>
-    </div>
-
-    <div class="card" style="border:2px solid #d92d20">
-      <h3>🚨 EMERGENCY / DHARURA</h3>
-      <p>Need ambulance now? Bonyeza hapa.</p>
-      <button class="red" onclick="emergency()">📞 CALL AMBULANCE - 199</button>
-      <button class="orange" onclick="alert('SMS sent to nearest hospital in Moshi')">📩 SEND EMERGENCY SMS</button>
-    </div>
-
-    <div class="card">
-      <h3>⏰ Medicine Reminder</h3>
-      <input type="text" id="medName" placeholder="Medicine name - Jina la dawa e.g. Panadol">
-      <input type="time" id="medTime" value="08:00">
-      <button onclick="setReminder()">Set Reminder / Weka Kikumbusho</button>
-      <p id="reminderOut" class="small"></p>
-    </div>
-
-    <div class="card">
-      <h3>💳 Payment + Insurance</h3>
-      <select id="payMethod">
-        <option>M-Pesa</option><option>Tigo Pesa</option><option>Airtel Money</option><option>Card</option><option>NHIF / Health Insurance</option>
-      </select>
-      <input type="text" placeholder="Insurance Number / Namba ya Bima">
-      <input type="number" placeholder="Amount - Kiasi TZS">
-      <button onclick="alert('Payment Successful! Malipo yamefanikiwa')">Pay / Lipa</button>
-    </div>
-  </div>
-
-  <!-- REGISTRATION -->
-  <div id="register" class="hidden">
-    <div class="card"><h3>1. E-Registration / Usajili</h3>
-      <input placeholder="Full Name - Jina Kamili">
-      <input placeholder="Phone - Namba ya Simu">
-      <input placeholder="NIDA / ID Number">
-      <input placeholder="Date of Birth">
-      <select><option>Male / Mwanaume</option><option>Female / Mwanamke</option></select>
-      <input placeholder="Insurance Number (Optional)">
-      <button onclick="alert('Registered! Umesajiliwa. Welcome to Afya Yangu')">Register / Jisajili</button>
-    </div>
-  </div>
-
-  <!-- BOOKING -->
-  <div id="booking" class="hidden">
-    <div class="card"><h3>2. Booking Appointment</h3>
-      <select id="hosp"><option>KCMC - Moshi</option><option>Mawenzi Hospital - Moshi</option><option>Muhimbili - Dar es Salaam</option><option>Aga Khan - Dar es Salaam</option><option>Bugando - Mwanza</option></select>
-      <select id="doc"><option>Dr. John - General (⭐4.8 - 120 reviews)</option><option>Dr. Neema - Child (⭐4.9 - 98 reviews)</option><option>Dr. Ali - Dental (⭐4.7)</option></select>
-      <input type="date"><input type="time">
-      <textarea placeholder="Symptoms / Dalili..."></textarea>
-      <button onclick="book()">Book Now / Weka Miadi</button>
-      <p id="bookOut"></p>
-      <p class="small">Doctor Ratings: See reviews before booking. USSD: Dial *150*99# to book without internet.</p>
-    </div>
-  </div>
-
-  <!-- TELE -->
-  <div id="tele" class="hidden">
-    <div class="card"><h3>4. Telemedicine - Video Doctor</h3>
-      <p>Talk to doctor from home.</p>
-      <div style="background:#111;color:#fff;padding:40px;text-align:center;border-radius:10px">📹 VIDEO CALL PREVIEW<br>Dr. Neema is online</div>
-      <button class="blue" onclick="alert('Connecting to Doctor...')">Start Video Call</button>
-    </div>
-  </div>
-
-  <!-- PHARMACY -->
-  <div id="pharmacy" class="hidden">
-    <div class="card"><h3>5. E-Pharmacy</h3>
-      <input id="drugSearch" placeholder="Search medicine... Tafuta dawa" onkeyup="searchDrug()">
-      <div id="drugs"></div>
-      <button onclick="alert('Order placed! Delivery in Moshi 1hr')">Order / Agiza</button>
-    </div>
-  </div>
-
-  <!-- HISTORY -->
-  <div id="history" class="hidden">
-    <div class="card"><h3>3. History - Check-up + Lab</h3>
-      <div class="hospital"><b>15 May 2026 - KCMC</b><br>Check-up: Normal • BP 120/80<br>Lab: Malaria Negative, Blood Sugar 95</div>
-      <div class="hospital"><b>02 Nov 2026 - Mawenzi</b><br>Check-up: Fever • Lab: Typhoid Negative</div>
-      <button onclick="alert('Downloading Lab PDF...')">Download Lab Results</button>
-    </div>
-  </div>
-
-  <!-- FAMILY -->
-  <div id="family" class="hidden">
-    <div class="card"><h3>9. Family Profiles</h3>
-      <input placeholder="Add family member - e.g. Mama, Baba, Mtoto">
-      <button onclick="alert('Family member added!')">Add Member</button>
-      <p class="small">Members: Rizyone (You), Mama, Baba, Sister</p>
-    </div>
-  </div>
-
-  <!-- BLOOD -->
-  <div id="blood" class="hidden">
-    <div class="card"><h3>14. Blood Donor</h3>
-      <select><option>Blood Group: O+</option><option>A+</option><option>B+</option><option>AB+</option><option>O-</option></select>
-      <p>Donors near Moshi: <b>12 donors</b> - 2km away</p>
-      <button class="red" onclick="alert('Request sent to 12 donors near you!')">Request Blood / Omba Damu</button>
-      <button onclick="alert('You registered as donor. Asante!')">Become Donor</button>
-    </div>
-  </div>
-
-  <!-- NEARBY -->
-  <div id="nearby" class="hidden">
-    <div class="card"><h3>15. Nearby Hospitals</h3>
-      <div class="hospital"><b>KCMC - Moshi</b> • 2.1km • <span style="color:green">OPEN NOW</span><br>⭐4.8 | Hospital Kubwa</div>
-      <div class="hospital"><b>Mawenzi Hospital</b> • 3.5km • <span style="color:green">OPEN NOW</span><br>⭐4.6</div>
-      <div class="hospital"><b>Kilimanjaro Pharmacy</b> • 1.2km • <span style="color:green">OPEN</span><br>⭐4.9 | Big Pharmacy</div>
-      <button onclick="alert('Opening Map... Moshi Hospitals')">Open Map</button>
-    </div>
-  </div>
-
-  <!-- NURSE AI -->
-  <div id="nurse" class="hidden">
-    <div class="card"><h3>16. Nurse AI Chat</h3>
-      <div id="chatBox" style="background:#f7f7f7;padding:10px;border-radius:10px;min-height:100px"><p><b>Nurse:</b> Habari! Nisaidie vipi? What is your symptom?</p></div>
-      <input id="chatIn" placeholder="Type symptom... e.g. homa, kichwa">
-      <button onclick="nurseChat()">Send</button>
-    </div>
-  </div>
-
-  <!-- USSD -->
-  <div class="card">
-    <h3>11. USSD / SMS - No Internet</h3>
-    <p>Dial <b>*150*99#</b> to book, check appointment, get reminder. Works on any phone.</p>
-  </div>
-
+<div class="hero" id="homeHero">
+<h1>Afya Yangu,<br><b>Karibu Tanzania</b></h1>
+<p>Find hospital, book doctor, buy medicine, open your patient file.</p>
+<input class="search" id="mainSearch" placeholder="🔍 Search hospital, pharmacy, doctor..." oninput="searchAll()">
 </div>
 
-<div class="bottom">
-  <div class="active" onclick="show('home')">🏠<br>Home</div>
-  <div onclick="show('booking')">📅<br>Book</div>
-  <div onclick="show('pharmacy')">💊<br>Pharmacy</div>
-  <div onclick="show('register')">👤<br>Register</div>
-  <div onclick="show('history')">📋<br>History</div>
+<div class="wrap">
+
+<!-- HOME -->
+<div id="page-home">
+<div class="section-title">Quick Services</div>
+<div class="grid">
+<div class="card gold" onclick="showPage('hospitals')"><i>🏥</i><b>Hospitals</b><p>Find Big Hospitals</p></div>
+<div class="card" onclick="showPage('pharmacy')"><i>💊</i><b>E-Pharmacy</b><p>Buy Medicine</p></div>
+<div class="card" onclick="showPage('booking')"><i>📅</i><b>Book Appointment</b><p>Doctor Today</p></div>
+<div class="card" onclick="showPage('patient')"><i>📂</i><b>Patient File</b><p>Open My File</p></div>
+<div class="card" onclick="showPage('telemedicine')"><i>📹</i><b>Telemedicine</b><p>Video with Doctor</p></div>
+<div class="card" onclick="alert('Calling Ambulance 999...')"><i>🚑</i><b>Emergency</b><p>Ambulance 24/7</p></div>
 </div>
+
+<div class="emergency">🚨 EMERGENCY? <br><a href="tel:999">CALL 999 NOW</a></div>
+
+<div class="section-title">Top Hospitals <small onclick="showPage('hospitals')">View All →</small></div>
+<div class="list" id="topHospitals"></div>
+
+<div class="section-title">Top Pharmacies <small onclick="showPage('pharmacy')">View All →</small></div>
+<div class="list" id="topPharmacies"></div>
+
+<button class="btn btn-green" style="margin-top:20px" onclick="showPage('patient')">📂 OPEN MY PATIENT FILE</button>
+</div>
+
+<!-- HOSPITALS -->
+<div id="page-hospitals" class="hidden">
+<div class="section-title">🏥 All Big Hospitals in Tanzania</div>
+<div class="tabs">
+<button class="tab active" onclick="filterH('All',this)">All</button>
+<button class="tab" onclick="filterH('Dar es Salaam',this)">Dar es Salaam</button>
+<button class="tab" onclick="filterH('Moshi',this)">Moshi</button>
+<button class="tab" onclick="filterH('Mwanza',this)">Mwanza</button>
+<button class="tab" onclick="filterH('Dodoma',this)">Dodoma</button>
+<button class="tab" onclick="filterH('Mbeya',this)">Mbeya</button>
+<button class="tab" onclick="filterH('Arusha',this)">Arusha</button>
+<button class="tab" onclick="filterH('Zanzibar',this)">Zanzibar</button>
+</div>
+<div class="list" id="hospitalList" style="margin-top:12px"></div>
+<button class="btn btn-outline" style="margin-top:16px" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<!-- PHARMACY -->
+<div id="page-pharmacy" class="hidden">
+<div class="section-title">💊 Big Pharmacies in Tanzania</div>
+<div class="list" id="pharmacyList"></div>
+<div class="section-title">Order Medicine</div>
+<input placeholder="Medicine name - e.g Panadol, Amoxicillin">
+<input placeholder="Your location - e.g Moshi, Dar">
+<button class="btn btn-gold" onclick="alert('Order received! Pharmacy will call you.')">ORDER NOW - PAY ON DELIVERY</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<!-- PATIENT FILE -->
+<div id="page-patient" class="hidden">
+<div class="section-title">📂 My Patient File</div>
+<div class="patient">
+<h2>AFYA YANGU - HEALTH CARD</h2>
+<div class="qrbox">▦▦▦ QR CODE ▦▦▦<br><span style="font-size:13px">Show this at any hospital</span></div>
+<div class="row"><span>Patient Name</span><b>Rizyone Patient</b></div>
+<div class="row"><span>Patient ID</span><b>AY-2026-001</b></div>
+<div class="row"><span>Phone</span><b>+255 7XX XXX XXX</b></div>
+<div class="row"><span>NHIF / Insurance</span><b>NHIF Active ✅</b></div>
+<div class="row"><span>Blood Group</span><b>O+</b></div>
+</div>
+<div class="section-title">Medical History</div>
+<div class="list">
+<div class="h-item"><div><h3>🩸 Blood Test - Malaria</h3><p>KCMC Moshi • 20 Nov 2026 • Negative</p></div><span class="badge">View PDF</span></div>
+<div class="h-item"><div><h3>💊 Prescription - Amoxicillin</h3><p>Muhimbili • 15 Nov 2026 • 5 Days</p></div><span class="badge gold">Active</span></div>
+<div class="h-item"><div><h3>🏥 Check-up - General</h3><p>Aga Khan Dar • 01 Nov 2026 • Normal</p></div><span class="badge">View PDF</span></div>
+</div>
+<button class="btn btn-gold" style="margin-top:16px" onclick="alert('Downloading Patient File PDF...')">⬇ DOWNLOAD MY FILE (PDF)</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<!-- BOOKING -->
+<div id="page-booking" class="hidden">
+<div class="section-title">📅 Book Appointment</div>
+<select id="bookHospital"></select>
+<select><option>General Doctor</option><option>Pediatrician - Watoto</option><option>Dentist</option><option>Eye Doctor</option><option>Heart - Cardiologist</option></select>
+<input type="date"><input placeholder="Your Name"><input placeholder="Phone +255...">
+<button class="btn btn-green" onclick="alert('Booked! Hospital will SMS you confirmation.')">CONFIRM BOOKING - TSH 10,000</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<!-- TELEMEDICINE -->
+<div id="page-telemedicine" class="hidden">
+<div class="section-title">📹 Telemedicine - Video Doctor</div>
+<div class="list">
+<div class="h-item"><div><h3>Dr. Mary - General</h3><p>⭐ 4.9 • Online Now • TSH 15,000</p></div><span class="badge gold">Video Call</span></div>
+<div class="h-item"><div><h3>Dr. John - Pediatrician</h3><p>⭐ 4.8 • Online Now • TSH 20,000</p></div><span class="badge gold">Video Call</span></div>
+</div>
+<button class="btn btn-green" style="margin-top:16px" onclick="alert('Connecting to Doctor...')">START VIDEO CALL</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="showPage('home')">← Back Home</button>
+</div>
+
+</div>
+<footer>Afya Yangu © 2026 • Made in Tanzania 🇹🇿 • Emergency 999</footer>
 
 <script>
-let sw = true;
-let drugsList = ["Panadol - 2,000 TZS","Amoxicillin - 5,000 TZS","Vitamin C - 3,500 TZS","ORS - 1,500 TZS"];
-function show(id){
-  ['home','register','booking','tele','pharmacy','history','family','blood','nearby','nurse'].forEach(x=>{
-    document.getElementById(x).classList.add('hidden');
-  });
-  document.getElementById(id).classList.remove('hidden');
-  window.scrollTo(0,0);
+const hospitals=[
+{name:"Muhimbili National Hospital",city:"Dar es Salaam",type:"National • 1000 Beds",img:"🏥"},
+{name:"Aga Khan Hospital",city:"Dar es Salaam",type:"Private • Cardiology",img:"🏥"},
+{name:"KCMC - Kilimanjaro Christian Medical Centre",city:"Moshi",type:"Zonal • 630 Beds",img:"🏥"},
+{name:"Bugando Medical Centre",city:"Mwanza",type:"Zonal • 950 Beds",img:"🏥"},
+{name:"Benjamin Mkapa Hospital",city:"Dodoma",type:"Zonal • Central Zone",img:"🏥"},
+{name:"Mbeya Zonal Referral Hospital",city:"Mbeya",type:"Zonal • Oncology",img:"🏥"},
+{name:"Mount Meru Regional Hospital",city:"Arusha",type:"Regional • 500 Beds",img:"🏥"},
+{name:"Ocean Road Cancer Institute",city:"Dar es Salaam",type:"Cancer Specialist",img:"🎗️"},
+{name:"Jakaya Kikwete Cardiac Institute",city:"Dar es Salaam",type:"Heart Specialist",img:"❤️"},
+{name:"Mnazi Mmoja Hospital",city:"Zanzibar",type:"Referral • Zanzibar",img:"🏥"},
+{name:"Arusha Lutheran Medical Center",city:"Arusha",type:"Private • Surgery",img:"🏥"},
+{name:"Temeke Regional Hospital",city:"Dar es Salaam",type:"Regional • Maternity",img:"🏥"}
+];
+const pharmacies=[
+{name:"Capelex Pharmacy",city:"Dar es Salaam",type:"24/7 • Delivery",img:"💊"},
+{name:"Salama Pharmaceuticals",city:"Dar es Salaam",type:"Biggest Distributor TZ",img:"💊"},
+{name:"Offradar Pharmacy",city:"Sinza, Dar",type:"Online + Delivery",img:"💊"},
+{name:"AfyaDepo Pharmacy",city:"Countrywide",type:"E-Pharmacy Tanzania",img:"💊"},
+{name:"Moshi Pharmacy",city:"Moshi",type:"24/7 • Kilimanjaro",img:"💊"},
+{name:"Boots Pharmacy Tanzania",city:"Dar es Salaam",type:"International",img:"💊"}
+];
+function renderHospitals(filter="All"){
+let list=hospitals.filter(h=>filter==="All"||h.city===filter);
+document.getElementById('hospitalList').innerHTML=list.map(h=>`<div class="h-item"><div style="font-size:32px">${h.img}</div><div><h3>${h.name}</h3><p>${h.city} • ${h.type}</p></div><span class="badge" onclick="showPage('booking')">Book →</span></div>`).join('');
+document.getElementById('topHospitals').innerHTML=hospitals.slice(0,3).map(h=>`<div class="h-item"><div style="font-size:32px">${h.img}</div><div><h3>${h.name}</h3><p>${h.city} • ${h.type}</p></div><span class="badge" onclick="showPage('booking')">Book →</span></div>`).join('');
+document.getElementById('bookHospital').innerHTML=hospitals.map(h=>`<option>${h.name} - ${h.city}</option>`).join('');
 }
-function book(){
-  let h = document.getElementById('hosp').value;
-  let d = document.getElementById('doc').value;
-  document.getElementById('bookOut').innerHTML = "✅ Booked! Umefanikiwa kuweka miadi<br>Hospital: "+h+"<br>Doctor: "+d+"<br>Payment: M-Pesa / NHIF Accepted";
+function renderPharmacies(){
+document.getElementById('pharmacyList').innerHTML=pharmacies.map(p=>`<div class="h-item"><div style="font-size:32px">${p.img}</div><div><h3>${p.name}</h3><p>${p.city} • ${p.type}</p></div><span class="badge gold">Order →</span></div>`).join('');
+document.getElementById('topPharmacies').innerHTML=pharmacies.slice(0,3).map(p=>`<div class="h-item"><div style="font-size:32px">${p.img}</div><div><h3>${p.name}</h3><p>${p.city} • ${p.type}</p></div><span class="badge gold">Order →</span></div>`).join('');
 }
-function setReminder(){
-  let m = document.getElementById('medName').value || "Dawa";
-  let t = document.getElementById('medTime').value;
-  document.getElementById('reminderOut').innerHTML = "⏰ Reminder set: "+m+" at "+t+" every day. Tutakukumbusha!";
-  if(Notification && Notification.permission !== "granted") Notification.requestPermission();
+function filterH(city,btn){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderHospitals(city);
 }
-function emergency(){
-  alert("🚨 Calling Ambulance 199... Location: Moshi, Kilimanjaro sent to nearest hospital!");
-  window.location.href = "tel:199";
+function showPage(p){
+['home','hospitals','pharmacy','patient','booking','telemedicine'].forEach(x=>document.getElementById('page-'+x).classList.add('hidden'));
+document.getElementById('page-'+p).classList.remove('hidden');
+document.getElementById('homeHero').style.display=p==='home'?'block':'none';
+window.scrollTo(0,0);
 }
-function searchDrug(){
-  let q = document.getElementById('drugSearch').value.toLowerCase();
-  let out = drugsList.filter(d=>d.toLowerCase().includes(q)).map(d=>"<div class='hospital'>"+d+" <button style='width:auto;padding:6px'>Add</button></div>").join("");
-  document.getElementById('drugs').innerHTML = out || "No result";
+function searchAll(){
+let q=document.getElementById('mainSearch').value.toLowerCase();
+if(q.length>1){showPage('hospitals');renderHospitals("All");document.getElementById('hospitalList').innerHTML=hospitals.filter(h=>(h.name+h.city).toLowerCase().includes(q)).map(h=>`<div class="h-item"><div style="font-size:32px">${h.img}</div><div><h3>${h.name}</h3><p>${h.city}</p></div><span class="badge">Book →</span></div>`).join('')||'<p>No hospital found</p>';}
 }
-searchDrug();
-function nurseChat(){
-  let v = document.getElementById('chatIn').value.toLowerCase();
-  let reply = "Pole sana. Kunywa maji mengi na pumzika. Kama homa ni kali, book appointment haraka. Drink water and rest. If fever is high, book appointment.";
-  if(v.includes("kichwa")||v.includes("head")) reply = "Kichwa: Pumzika, kunywa maji, usiangalie simu sana. Kama ni siku 3+, nenda hospitali.";
-  if(v.includes("tumbo")||v.includes("stomach")) reply = "Tumbo: Kula kidogo kidogo, kunywa ORS. Kama unaharisha damu, nenda hospitali haraka!";
-  document.getElementById('chatBox').innerHTML += "<p><b>You:</b> "+v+"</p><p><b>Nurse:</b> "+reply+"</p>";
-  document.getElementById('chatIn').value = "";
-}
-function toggleLang(){
-  sw = !sw;
-  document.getElementById('welcome').innerText = sw ? "Karibu, Rizyone 👋" : "Welcome, Rizyone 👋";
-  alert(sw ? "Lugha: Kiswahili" : "Language: English");
-}
+renderHospitals();renderPharmacies();
 </script>
 </body>
 </html>
